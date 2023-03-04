@@ -24,7 +24,7 @@ export default function CustomNavbar() {
     </li>
   
     <li class="nav-item">
-      <a class="nav-link  active text-light" href="/RegisterUser">Register Shop</a>
+      <a class="nav-link  active text-light" href="/RegisterUser">Register User</a>
     </li>
     <li class="nav-item">
       <a class="nav-link active text-light" href="/AdminLogin">Admin</a>
