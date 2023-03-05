@@ -8,19 +8,22 @@ import Login from './Pages/Login';
 import SignUp from './Pages/SignUp';
 import AboutUs from './Pages/AboutUs';
 import CustomNavbar from './Component/CustomNavbar';
-// import LoginForm from './Components/LoginForm';
+import LoginForm from './Component/LoginForm';
+import RegisterUser from './Component/Registration';
+
 function App() {
   return (
-    <div className="App page">
-     <CustomNavbar/>
-     {/* <LoginForm></LoginForm> */}
-   <BrowserRouter>
+    <div className="App  ">
+        <CustomNavbar/>
+   <BrowserRouter>    
         <Routes>
         
             <Route path='/' element={<Home/>}/>
-            <Route path='/Login' element={<Login/>}/>
+            {/* <Route path='/Login' element={<Login/>}/> */}
+            <Route path='/Login' element={<LoginForm/>}></Route>
             <Route path='/SignUp' element={<SignUp/>}/>
-            <Route path='/AboutUs' element={<AboutUs/>}/ >
+            <Route path='/AboutUs' element={<AboutUs/>}/>
+            <Route path='/RegisterUser' element={<RegisterUser/>}/>
         </Routes>
    </BrowserRouter>
     </div>
