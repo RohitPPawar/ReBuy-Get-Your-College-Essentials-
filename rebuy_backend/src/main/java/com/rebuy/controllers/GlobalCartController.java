@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rebuy.Dto.GlobalCartDto;
+import com.rebuy.Dto.UserProductCompositeKeyDto;
 import com.rebuy.payloads.ApiResponse;
 import com.rebuy.services.impl.GlobalCartServices;
 
@@ -32,13 +33,13 @@ public class GlobalCartController {
 	}
 
 	@PutMapping("/{Id}")
-	public ResponseEntity<GlobalCartDto> update(@RequestBody GlobalCartDto globalCartDto, @PathVariable Integer Id) {
+	public ResponseEntity<GlobalCartDto> update(@RequestBody GlobalCartDto globalCartDto, @PathVariable UserProductCompositeKeyDto Id) {
 		GlobalCartDto updated = this.globalCartServices.update(globalCartDto, Id);
 		return new ResponseEntity<GlobalCartDto>(updated, HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{Id}")
-	public ResponseEntity<ApiResponse> delete(@PathVariable Integer Id) {
+	public ResponseEntity<ApiResponse> delete(@PathVariable UserProductCompositeKeyDto Id) {
 		this.globalCartServices.delete(Id);
 		return new ResponseEntity<ApiResponse>(new ApiResponse("Cart deleted", true), HttpStatus.OK);
 	}
@@ -49,7 +50,7 @@ public class GlobalCartController {
 	}
 
 	@GetMapping("/{Id}")
-	public ResponseEntity<GlobalCartDto> getById(@PathVariable Integer Id) {
+	public ResponseEntity<GlobalCartDto> getById(@PathVariable UserProductCompositeKeyDto Id) {
 		return ResponseEntity.ok(this.globalCartServices.getById(Id));
 	}
 }
