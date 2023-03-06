@@ -2,6 +2,8 @@ package com.rebuy.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,9 +27,9 @@ public class MobileController {
 	@Autowired
 	private MobileServices mobileServices;
 
-	@PostMapping("/")
-	public ResponseEntity<MobileDto> create(@RequestBody MobileDto MobileDto) {
-		MobileDto created = this.mobileServices.create(MobileDto);
+	@PostMapping("/user/{uid}")
+	public ResponseEntity<MobileDto> create(@Valid @RequestBody MobileDto MobileDto, @PathVariable Integer uid) {
+		MobileDto created = this.mobileServices.addMobile(MobileDto, uid);
 		return new ResponseEntity<MobileDto>(created, HttpStatus.CREATED);
 	}
 

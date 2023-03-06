@@ -8,10 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.rebuy.Dto.AddressDto;
+import com.rebuy.Dto.UserDto;
 import com.rebuy.exception.ResourseNotFoundException;
 import com.rebuy.model.Address;
 import com.rebuy.model.User;
 import com.rebuy.repositories.AddressRepository;
+import com.rebuy.repositories.UserRepo;
 import com.rebuy.service.Services;
 
 @Service
@@ -21,6 +23,16 @@ public class AddressServices extends Services<AddressDto, Integer> {
 	private AddressRepository addressRepo;
 	@Autowired
 	private ModelMapper mapper;
+	@Autowired
+	private UserRepo userRepo;
+
+	public AddressDto addAddress(AddressDto addressDto, Integer uid) {
+
+		User user = this.userRepo.findById(uid).orElseThrow(() -> new ResourseNotFoundException("user", uid));
+		addressDto.setUser(this.mapper.map(user, UserDto.class));
+		Address saved = this.addressRepo.save(this.mapper.map(addressDto, Address.class));
+		return this.mapper.map(saved, AddressDto.class);
+	}
 
 	@Override
 	public AddressDto create(AddressDto addressDto) {

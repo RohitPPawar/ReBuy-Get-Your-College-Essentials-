@@ -2,6 +2,7 @@ package com.rebuy.model;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,6 +22,7 @@ public class User {
 	private int Id;
 	private String firstName;
 	private String lastName;
+	@Column(unique = true)
 	private String emailId;
 	private String password;
 	private String collegeName;

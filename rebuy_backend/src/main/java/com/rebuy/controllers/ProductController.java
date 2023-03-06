@@ -2,6 +2,8 @@ package com.rebuy.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,9 +27,10 @@ public class ProductController {
 	@Autowired
 	private ProductServices productServices;
 
-	@PostMapping("/")
-	public ResponseEntity<ProductDto> create(@RequestBody ProductDto productDto) {
-		ProductDto created = this.productServices.create(productDto);
+	@PostMapping("/user/{uid}/category/{cid}/field/{fid}")
+	public ResponseEntity<ProductDto> create(@Valid @RequestBody ProductDto productDto, @PathVariable Integer uid,
+			@PathVariable Integer cid, @PathVariable Integer fid) {
+		ProductDto created = this.productServices.addProduct(productDto, uid, cid, fid);
 		return new ResponseEntity<ProductDto>(created, HttpStatus.CREATED);
 	}
 
@@ -52,4 +55,15 @@ public class ProductController {
 	public ResponseEntity<ProductDto> getById(@PathVariable Integer Id) {
 		return ResponseEntity.ok(this.productServices.getById(Id));
 	}
+
+	@GetMapping("/category/{cid}")
+	public ResponseEntity<List<ProductDto>> getByCategory(@PathVariable Integer cid) {
+		return ResponseEntity.ok(this.productServices.getByCategory(cid));
+	}
+
+	@GetMapping("/field/{fid}")
+	public ResponseEntity<List<ProductDto>> getByField(@PathVariable Integer fid) {
+		return ResponseEntity.ok(this.productServices.getByFiled(fid));
+	}
+
 }

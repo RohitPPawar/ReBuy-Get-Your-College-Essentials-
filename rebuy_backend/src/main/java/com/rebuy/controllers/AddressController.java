@@ -2,6 +2,8 @@ package com.rebuy.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,9 +27,9 @@ public class AddressController {
 	@Autowired
 	private AddressServices addressServices;
 	
-	@PostMapping("/")
-	public ResponseEntity<AddressDto> create(@RequestBody AddressDto addressDto) {
-		AddressDto created = this.addressServices.create(addressDto);
+	@PostMapping("/user/{uid}")
+	public ResponseEntity<AddressDto> create(@Valid @RequestBody AddressDto addressDto,@PathVariable Integer uid) {
+		AddressDto created = this.addressServices.addAddress(addressDto,uid);
 		return new ResponseEntity<AddressDto>(created, HttpStatus.CREATED);
 	}
 

@@ -21,7 +21,7 @@ public class Address {
 	private String city;
 	private String state;
 	private String area;
-	private int pinCode;
+	private String pinCode;
 
 	@ManyToOne
 	@JoinColumn(name = "user_id")

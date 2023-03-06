@@ -8,10 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.rebuy.Dto.MobileDto;
+import com.rebuy.Dto.UserDto;
 import com.rebuy.exception.ResourseNotFoundException;
 import com.rebuy.model.Mobile;
 import com.rebuy.model.User;
 import com.rebuy.repositories.MobileRepo;
+import com.rebuy.repositories.UserRepo;
 import com.rebuy.service.Services;
 
 @Service
@@ -21,6 +23,15 @@ public class MobileServices extends Services<MobileDto, Integer> {
 	private MobileRepo mobileRepo;
 	@Autowired
 	private ModelMapper mapper;
+	@Autowired
+	private UserRepo userRepo;
+
+	public MobileDto addMobile(MobileDto mobileDto, Integer uid) {
+		User user = this.userRepo.findById(uid).orElseThrow(() -> new ResourseNotFoundException("user", uid));
+		mobileDto.setUser(this.mapper.map(user, UserDto.class));
+		Mobile save = this.mobileRepo.save(this.mapper.map(mobileDto, Mobile.class));
+		return this.mapper.map(save, MobileDto.class);
+	}
 
 	@Override
 	public MobileDto create(MobileDto mobileDto) {
