@@ -2,6 +2,8 @@ package com.rebuy.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +28,7 @@ public class UserController {
 	private UserServices userServices;
 
 	@PostMapping("/")
-	public ResponseEntity<UserDto> create(@RequestBody UserDto userDto) {
+	public ResponseEntity<UserDto> create(@Valid @RequestBody UserDto userDto) {
 		UserDto created = this.userServices.create(userDto);
 		return new ResponseEntity<UserDto>(created, HttpStatus.CREATED);
 	}

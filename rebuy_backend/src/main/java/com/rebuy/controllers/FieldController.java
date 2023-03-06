@@ -2,6 +2,8 @@ package com.rebuy.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +28,7 @@ public class FieldController {
 	private FieldServices fieldServices;
 
 	@PostMapping("/")
-	public ResponseEntity<FieldDto> create(@RequestBody FieldDto fieldDto) {
+	public ResponseEntity<FieldDto> create(@Valid @RequestBody FieldDto fieldDto) {
 		FieldDto created = this.fieldServices.create(fieldDto);
 		return new ResponseEntity<FieldDto>(created, HttpStatus.CREATED);
 	}

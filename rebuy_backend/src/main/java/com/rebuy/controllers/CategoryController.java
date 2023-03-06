@@ -2,6 +2,8 @@ package com.rebuy.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +28,7 @@ public class CategoryController {
 	private CategoryServices categoryServices;
 
 	@PostMapping("/")
-	public ResponseEntity<CategoryDto> create(@RequestBody CategoryDto categoryDto) {
+	public ResponseEntity<CategoryDto> create(@Valid @RequestBody CategoryDto categoryDto) {
 		CategoryDto created = this.categoryServices.create(categoryDto);
 		return new ResponseEntity<CategoryDto>(created, HttpStatus.CREATED);
 	}

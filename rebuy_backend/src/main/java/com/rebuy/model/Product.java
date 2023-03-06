@@ -19,6 +19,8 @@ public class Product {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int Id;
 
+	private String productName;
+
 	@ManyToOne
 	@JoinColumn(name = "uploadedBy")
 	private User uploadedBy;
