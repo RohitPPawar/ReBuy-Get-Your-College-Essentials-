@@ -1,13 +1,13 @@
 import React from 'react'
 import { useState } from 'react'
 // import RegisterService from '../Services/RegisterService'
-import Navbar from '../Component/CustomNavbar'
+import customNavbar from './CustomNavbar';
 import '../Pages/Home';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const RegisterUser = () => {
+const SignUp = () => {
 
     const [message, setMessage] = useState("");
     const navigate=useNavigate();
@@ -61,7 +61,7 @@ const RegisterUser = () => {
 }
     return (
         <div className='base'>
-            <Navbar />
+            <customNavbar/>
             <div className="container mt-5">
                 <div className="row">
                     <div className="col-md-3 offset-md-10 mt-5">
@@ -98,7 +98,7 @@ const RegisterUser = () => {
                                         value={register.mobile} onChange={(e) => handleChange(e)} />
                                 </div>
                                 <div className="mb-3" h>
-                                    <label>ClgName</label>
+                                    <label>CollegeName</label>
                                     <input type="text" className='form-control' name='ClgName'
                                         value={register.ClgName} onChange={(e) => handleChange(e)} />
                                 </div>
@@ -125,7 +125,8 @@ const RegisterUser = () => {
             </div>
             <ToastContainer position="top-center"/>
         </div>
+
     )
 }
 
-export default RegisterUser
+export default SignUp

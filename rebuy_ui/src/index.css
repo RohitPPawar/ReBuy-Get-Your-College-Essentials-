@@ -6,11 +6,13 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   
-  background-image: url("./Images/College\ image.jpg");
-  background-size: cover;
+  background-image: url("./Images/tudy\ group.jpeg");
+  background-size:cover
 }
+
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
