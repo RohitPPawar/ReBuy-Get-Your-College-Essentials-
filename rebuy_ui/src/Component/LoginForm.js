@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
@@ -18,14 +19,46 @@ import {
 } from "reactstrap";
 import { toast } from "react-toastify";
 import { login } from "../Services/User_service";
+=======
+import React from 'react'
+import { useParams } from 'react-router-dom'
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
+
+// import ./Login.css
+import { ToastContainer } from 'react-toastify'
+const LoginForm=()=> {
+    const { Userid } = useParams();
+>>>>>>> f2b99fb952d47deab7262c3033bf13bac78e6f38
 
 const LoginForm = () => {
   const navigate = useNavigate();
 
+<<<<<<< HEAD
   const [loginDetails, setLoginDetails] = useState({
     email: "",
     password: "",
   });
+=======
+  
+    
+    return (
+        
+        <div>
+           
+<div className='ul'>
+
+            <div className="container mt-5">
+                <div className="row">
+                    <div className="col-md-4 offset-md-4 mt-5">
+                        <div className="card mt-5">
+                            <div className="card-header text-center fs-3 text-success">Login</div>
+                                <div className="card-body">
+                                <div className="mb-3">
+                                    <label>Email </label>
+                                    <input type="email" id="email" className='form-control' name='email' 
+                                    placeholder="Your Email" value={email} onChange={(e)=>setEmail(e.target.value)}/>
+>>>>>>> f2b99fb952d47deab7262c3033bf13bac78e6f38
 
   const handleReset = () => {
     setLoginDetails({
