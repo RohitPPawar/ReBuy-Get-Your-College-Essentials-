@@ -111,7 +111,7 @@ const SignUp = () => {
     <>
       <Container style={{ marginTop: 60 }}>
         <Row>
-          {JSON.stringify(data)}   
+          {/* {JSON.stringify(data)}    */}
 
           <Col sm={{ size: 6, offset: 3 }}>
             <Card color="dark" outline>

@@ -7,4 +7,3 @@ export const myAxois =axios.create({
     baseURL:BASE_URL
 });
 
-

@@ -17,7 +17,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.rebuy.Dto.LoginDetails;
 import com.rebuy.Dto.UserDto;
+import com.rebuy.exception.InvalidUserException;
+import com.rebuy.model.User;
 import com.rebuy.payloads.ApiResponse;
 import com.rebuy.services.impl.UserServices;
 
@@ -28,11 +31,18 @@ public class UserController {
 
 	@Autowired
 	private UserServices userServices;
-	
+
 	@PostMapping("/")
-	public ResponseEntity<UserDto> create(@Valid @RequestBody UserDto userDto) {
-		UserDto created = this.userServices.create(userDto);
+	public ResponseEntity<UserDto> create(@Valid @RequestBody UserDto userDto) throws InvalidUserException {
+		UserDto created = this.userServices.createUser(userDto);
 		return new ResponseEntity<UserDto>(created, HttpStatus.CREATED);
+	}
+
+//	login user
+	@PostMapping("/login")
+	public ResponseEntity<UserDto> loginUser(@RequestBody LoginDetails loginDetails) throws InvalidUserException {
+		UserDto loggedUser = this.userServices.loginUser(loginDetails);
+		return new ResponseEntity<UserDto>(loggedUser, HttpStatus.OK);
 	}
 
 	@PutMapping("/{Id}")
@@ -41,7 +51,7 @@ public class UserController {
 		return new ResponseEntity<UserDto>(updated, HttpStatus.OK);
 	}
 
-	@DeleteMapping("/{Id}")	
+	@DeleteMapping("/{Id}")
 	public ResponseEntity<ApiResponse> delete(@PathVariable Integer Id) {
 		this.userServices.delete(Id);
 		return new ResponseEntity<ApiResponse>(new ApiResponse("Cart deleted", true), HttpStatus.OK);

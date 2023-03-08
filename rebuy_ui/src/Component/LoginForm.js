@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import CustomNavbar from "./CustomNavbar";
@@ -16,21 +16,66 @@ import {
   Label,
   Row,
 } from "reactstrap";
+import { toast } from "react-toastify";
+import { login } from "../Services/User_service";
 
 const LoginForm = () => {
-  const { Userid } = useParams();
+  const navigate = useNavigate();
 
-  console.log(Userid);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [loginDetails, setLoginDetails] = useState({
+    email: "",
+    password: "",
+  });
 
+  const handleReset = () => {
+    setLoginDetails({
+      email: "",
+      password: "",
+    });
+  };
+
+  const handleChange = (event, field) => {
+    let actualValues = event.target.value;
+
+    setLoginDetails({
+      ...loginDetails, //here actual copy of value is created not refrence
+      [field]: actualValues, //here only that field get set which is changed
+    });
+  };
+
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
+    console.log(loginDetails);
+
+    if (loginDetails.email == "") {
+      toast.error("Email is Required");
+      return;
+    }
+    if (loginDetails.password == "") {
+      toast.error("Enter password");
+      return;
+    }
+
+// SUBMIT data to server
+    login(loginDetails).then((resp)=>{
+      console.log(resp);
+      console.log("User logged succesfully");
+      toast.success("Welcome "+resp.firstName);
+      navigate("/user");
+    })
+    .catch((e)=>{
+      console.log(e);
+      console.log("login faied");
+    })
+
+  };
 
   return (
     <>
       <Container style={{ marginTop: 60 }}>
         <Row>
           <Col sm={{ size: 5, offset: 3 }}>
-            <Card color="dark" outline >
+            <Card color="dark" outline>
               <CardHeader>
                 <h4 style={{ color: "green" }}>Login!!</h4>
               </CardHeader>
@@ -38,13 +83,15 @@ const LoginForm = () => {
               <CardBody>
                 {/* form creation */}
 
-                <Form>
+                <Form onSubmit={handleFormSubmit}>
                   <FormGroup>
                     <Label for="email">Email</Label>
                     <Input
                       type="email"
                       placeholder="Enter Email"
                       id="email"
+                      value={loginDetails.email}
+                      onChange={(e) => handleChange(e, "email")}
                     ></Input>
                   </FormGroup>
 
@@ -54,11 +101,15 @@ const LoginForm = () => {
                       type="password"
                       placeholder="Enter Password"
                       id="password"
+                      value={loginDetails.password}
+                      onChange={(e) => handleChange(e, "password")}
                     ></Input>
                   </FormGroup>
                 </Form>
                 <Container>
-                  <Button color="success">Login</Button>
+                  <Button color="success" onClick={handleFormSubmit}>
+                    Login
+                  </Button>
                   <Link className="btn btn-warning ms-2" to={"/SignUp"}>
                     Register
                   </Link>
