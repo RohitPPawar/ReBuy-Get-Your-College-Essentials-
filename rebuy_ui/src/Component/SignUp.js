@@ -6,6 +6,7 @@ import '../Pages/Home';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import userEvent from '@testing-library/user-event';
 
 const SignUp = () => {
 
@@ -17,7 +18,7 @@ const SignUp = () => {
         Email: "",
         Password: "",
         Mobile: "",
-        ClgName:"",
+        CollegeName:"",
         Address: "",
 
 
@@ -28,6 +29,12 @@ const SignUp = () => {
         setRegister({ ...register, [e.target.name]: value })
     }
 
+
+    const saveRegister=(e)=>{
+                        if(userEvent.address.length===0){}
+
+    }
+
     const handleReset=()=>{
         setRegister({
             FirstName: "",
@@ -35,7 +42,7 @@ const SignUp = () => {
             Email: "",
             Password: "",
             Mobile: "",
-            ClgName:"",
+            CollegeName:"",
             Address: "",
     
         })
@@ -44,75 +51,74 @@ const SignUp = () => {
     const registerUser = (e) => {
         if(register.FirstName.length===0){toast.error("Please enter Firstname")}
         else if(register.LastName.length===0){ toast.error("Please enter lastName")}
-        else if(register.email.length===0){toast.error("Please enter email")}
-        else if(register.password.length===0){toast.error("Please enter password")}
-        else if(register.mobile.length===0){toast.error("Please enter mobile")}
-        else if(register.ClgName.length===0){toast.error("Please enter Clg name")}
-        // else{
-        // RegisterService.addUser(register)
-        //     .then(response => {
-        //          setMessage("Register Successfull.")
-        //         //  localStorage.setItem("id",response.data.id)
-        //         sessionStorage.setItem("id",response.data.value)
-        //          navigate("/Service")
-        //         })
+        else if(register.Email.length===0){toast.error("Please enter email")}
+        else if(register.Password.length===0){toast.error("Please enter password")}
+        else if(register.Mobile.length===0){toast.error("Please enter mobile")}
+        else if(register.CollegeName.length===0){toast.error("Please enter Clg name")}
+    //     else{
+    //     RegisterService.addUser(register)
+    //         .then(response => {
+    //              setMessage("Register Successfull.")
+    //             //  localStorage.setItem("id",response.data.id)
+    //             sessionStorage.setItem("id",response.data.value)
+    //              navigate("/Service")
+    //             })
     //         .catch(error => { console.log(error) })
     // }
+    
 }
     return (
         <div className='base'>
             <customNavbar/>
-            <div className="container mt-5">
+            <div className="container mt-3">
                 <div className="row">
-                    <div className="col-md-3 offset-md-10 mt-5">
+                    <div className="col-md-4  offset-md-4 mt-5">
                         <div className="card mt-5">
-                            <div className="card-header text-center fs-3 text-success">Register User
+                            <div className="card-header text-center fs-3 text-success">Sign Up
                                 {
                                     message && <p className='text-success'>{message}</p>
                                 }
                             </div>
                             <div className="card-body">
-                                <div className="mb-3">
+                                {/* <div className="mb-2 ">
                                     <label>FirstName</label>
                                     <input type="text" className='form-control' name='firstname'
                                         value={register.FirstName} onChange={(e) => handleChange(e)} />
-                                </div>
-                                <div className="mb-3">
+                                </div> */}
+                               
+
+                            <div className='mb-2'> <lable>FirstName</lable>
+                            <input type ='text' className='form-control  name =firstname' ></input>
+                            </div>
+                               
+
+                                <div className="mb-2">
                                     <label>LastName</label>
                                     <input type="text" className='form-control' name='lastname'
                                         value={register.surname} onChange={(e) => handleChange(e)} />
                                 </div>
-                                <div className="mb-3">
+                                <div className="mb-2">
                                     <label>Email</label>
                                     <input type="email" className='form-control' name='email'
                                         value={register.email} onChange={(e) => handleChange(e)} />
                                 </div>
-                                <div className="mb-3">
+                                <div className="mb-2">
                                     <label>Password</label>
                                     <input type="password" className='form-control' name='password'
                                         value={register.password} onChange={(e) => handleChange(e)} />
                                 </div>
-                                <div className="mb-3" h>
-                                    <label>Mobile Number</label>
-                                    <input type="text" className='form-control' name='mobile'
-                                        value={register.mobile} onChange={(e) => handleChange(e)} />
-                                </div>
-                                <div className="mb-3" h>
-                                    <label>CollegeName</label>
-                                    <input type="text" className='form-control' name='ClgName'
-                                        value={register.ClgName} onChange={(e) => handleChange(e)} />
-                                </div>
-                                
-                                {/* <div className="mb-3">
+                                <div className="mb-3">
                                     <label>Confirm Password</label>
                                     <input type="password" className='form-control' name='cpassword' />
-                                </div> */}
-                               
-                                <div className="mb-3">
-                                    <label>Address</label>
-                                    <input type="text" className='form-control' name='address'
-                                        value={register.address} onChange={(e) => handleChange(e)} />
                                 </div>
+                               
+                                <div className="mb-2" h>
+                                    <label>CollegeName</label>
+                                    <input type="text" className='form-control' name='ClgName'
+                                        />
+                                </div>
+                                {/* value={register.CollegeName} onChange={(e) => handleChange(e)} */}
+
                                 
                                 <div className="text-center">
                                     <button className='btn btn-success me-2' onClick={registerUser}>RegisterUser</button>

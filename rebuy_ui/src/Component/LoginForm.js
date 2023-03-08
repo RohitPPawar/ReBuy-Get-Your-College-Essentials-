@@ -2,7 +2,7 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import CustomNavbar from './CustomNavbar'
+
 // import ./Login.css
 import { ToastContainer } from 'react-toastify'
 const LoginForm=()=> {
@@ -12,19 +12,17 @@ const LoginForm=()=> {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    // const onLogin=()=>{
-        // let id = document.getElementById("email")
-    //     let pass = document.getElementById("password")
+  
     
     return (
         
         <div>
            
 <div className='ul'>
-            <CustomNavbar/>
+
             <div className="container mt-5">
                 <div className="row">
-                    <div className="col-md-3 offset-md-10 mt-5">
+                    <div className="col-md-4 offset-md-4 mt-5">
                         <div className="card mt-5">
                             <div className="card-header text-center fs-3 text-success">Login</div>
                                 <div className="card-body">

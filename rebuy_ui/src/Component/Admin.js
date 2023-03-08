@@ -12,7 +12,7 @@ const Admin=()=> {
             <CustomNavbar/>
             <div className="container mt-5">
                 <div className="row">
-                    <div className="col-md-3 offset-md-10 mt-5">
+                    <div className="col-md-4 offset-md-4 mt-5">
                         <div className="card mt-5">
                             <div className="card-header text-center fs-3 text-success">Admin Login</div>
                                 <div className="card-body">

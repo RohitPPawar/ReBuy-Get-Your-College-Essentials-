@@ -9,14 +9,17 @@ import AboutUs from './Pages/AboutUs';
 import CustomNavbar from './Component/CustomNavbar';
 import LoginForm from './Component/LoginForm';   
 import Admin from './Component/Admin';
-
+import Products from './Pages/Products';
 
 function App() {
+ const loginHandler=()=>{} //*****Consfsue***** */
   return (
+  
     <div className="App  ">
-        <CustomNavbar/>
-       
+          <CustomNavbar />
+          {/* Login={this.loginHandler} */}
    <BrowserRouter>    
+
         <Routes>
         
             <Route path='/' element={<Home/>}/>
@@ -25,6 +28,7 @@ function App() {
             <Route path='/SignUp' element={<SignUp/>}/>
             <Route path='/AboutUs' element={<AboutUs/>}/>
             <Route path='/Admin' element={<Admin/>}/>
+            <Route path="/Product" element={<Products/>}/>
             {/* <Route path='/Admin' element={ <Admin/>}></Route> */}
         </Routes>
    </BrowserRouter>
