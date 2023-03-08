@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rebuy.Dto.ProductDto;
@@ -46,8 +47,13 @@ public class ProductController {
 		return new ResponseEntity<ApiResponse>(new ApiResponse("Cart deleted", true), HttpStatus.OK);
 	}
 
+//	get all products
 	@GetMapping("/")
-	public ResponseEntity<List<ProductDto>> getAll() {
+	public ResponseEntity<List<ProductDto>> getAll(
+//			@RequestParam(value = "pageNumber", defaultValue = "2", required = false) Integer pageNumber,
+//			@RequestParam(value = "pageSize", defaultValue = "2", required = false) Integer pageSize,
+//			@RequestParam(value = "sortBy", defaultValue = "productName", required = false) String sortBy
+	) {
 		return ResponseEntity.ok(this.productServices.getAll());
 	}
 
@@ -64,6 +70,12 @@ public class ProductController {
 	@GetMapping("/field/{fid}")
 	public ResponseEntity<List<ProductDto>> getByField(@PathVariable Integer fid) {
 		return ResponseEntity.ok(this.productServices.getByFiled(fid));
+	}
+
+//	search 
+	@GetMapping("/search/{name}")
+	public ResponseEntity<List<ProductDto>> searchProductByName(@PathVariable String name) {
+		return ResponseEntity.ok(this.productServices.searchProduct(name));
 	}
 
 }

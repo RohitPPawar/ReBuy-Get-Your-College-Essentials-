@@ -1,132 +1,214 @@
-import React from 'react'
-import { useState } from 'react'
-// import RegisterService from '../Services/RegisterService'
-import customNavbar from './CustomNavbar';
-import '../Pages/Home';
-import { useNavigate } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import React, { useEffect } from "react";
+import { useState } from "react";
+import "../Pages/Home";
+import { Navigate, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css";
+import { getAllUser, signUp } from "../Services/User_service";
+import {
+  Button,
+  Card,
+  CardBody,
+  CardHeader,
+  Col,
+  Container,
+  Form,
+  FormFeedback,
+  FormGroup,
+  Input,
+  Label,
+  Row,
+} from "reactstrap";
+
+// const navigate = useNavigate();
 
 const SignUp = () => {
+  const navigate = useNavigate();
 
-    const [message, setMessage] = useState("");
-    const navigate=useNavigate();
-    const [register, setRegister] = useState({
-        FirstName: "",
-        LastName: "",
-        Email: "",
-        Password: "",
-        Mobile: "",
-        ClgName:"",
-        Address: "",
+  const [data, setData] = useState({
+    firstName: "",
+    lastName: "",
+    emailId: "",
+    password: "",
+    collegeName: "",
+  });
 
+  // //   to print data on console
+  //   useEffect(() => {
+  //     console.log(data);
+  //   }, [data]);
 
-    })
+  const [error, setError] = useState({
+    errors: {},
+    isError: false,
+  });
 
-    const handleChange = (e) => {
-        const value = e.target.value
-        setRegister({ ...register, [e.target.name]: value })
-    }
+  // handle change
+  const handleChange = (event, property) => {
+    setData({ ...data, [property]: event.target.value });
+  };
 
-    const handleReset=()=>{
-        setRegister({
-            FirstName: "",
-            LastName: "",
-            Email: "",
-            Password: "",
-            Mobile: "",
-            ClgName:"",
-            Address: "",
-    
+  //reseting the form
+  const resetData = () => {
+    setData({
+      firstName: "",
+      lastName: "",
+      emailId: "",
+      password: "",
+      collegeName: "",
+    });
+  };
+
+  //   sumbmiting the form
+
+  const submitForm = (event) => {
+    event.preventDefault();
+
+    console.log(data);
+
+    if (data.firstName.length === 0) {
+      toast.error("Please enter Firstname");
+    } else if (data.lastName.length === 0) {
+      toast.error("Please enter lastName");
+    } else if (data.emailId.length === 0) {
+      toast.error("Please enter email");
+    } else if (data.password.length === 0) {
+      toast.error("Please enter password");
+    } else if (data.collegeName.length === 0) {
+      toast.error("Please enter Clg name");
+    } else {
+      //call server api to add user
+
+      signUp(data)
+        .then((resp) => {
+          console.log(resp);
+          resetData();
+          console.log("success log");
+          toast.success("User registerd sucessfully with id " + resp.id);
+          navigate("/login");
         })
+        .catch((e) => {
+          console.log(e);
+          console.log("error log");
+          //error handling
+          setError({
+            errors: e,
+            isError: true,
+          });
+        });
     }
+  };
 
-    const registerUser = (e) => {
-        if(register.FirstName.length===0){toast.error("Please enter Firstname")}
-        else if(register.LastName.length===0){ toast.error("Please enter lastName")}
-        else if(register.email.length===0){toast.error("Please enter email")}
-        else if(register.password.length===0){toast.error("Please enter password")}
-        else if(register.mobile.length===0){toast.error("Please enter mobile")}
-        else if(register.ClgName.length===0){toast.error("Please enter Clg name")}
-        // else{
-        // RegisterService.addUser(register)
-        //     .then(response => {
-        //          setMessage("Register Successfull.")
-        //         //  localStorage.setItem("id",response.data.id)
-        //         sessionStorage.setItem("id",response.data.value)
-        //          navigate("/Service")
-        //         })
-    //         .catch(error => { console.log(error) })
-    // }
-}
-    return (
-        <div className='base'>
-            <customNavbar/>
-            <div className="container mt-5">
-                <div className="row">
-                    <div className="col-md-3 offset-md-10 mt-5">
-                        <div className="card mt-5">
-                            <div className="card-header text-center fs-3 text-success">Register User
-                                {
-                                    message && <p className='text-success'>{message}</p>
-                                }
-                            </div>
-                            <div className="card-body">
-                                <div className="mb-3">
-                                    <label>FirstName</label>
-                                    <input type="text" className='form-control' name='firstname'
-                                        value={register.FirstName} onChange={(e) => handleChange(e)} />
-                                </div>
-                                <div className="mb-3">
-                                    <label>LastName</label>
-                                    <input type="text" className='form-control' name='lastname'
-                                        value={register.surname} onChange={(e) => handleChange(e)} />
-                                </div>
-                                <div className="mb-3">
-                                    <label>Email</label>
-                                    <input type="email" className='form-control' name='email'
-                                        value={register.email} onChange={(e) => handleChange(e)} />
-                                </div>
-                                <div className="mb-3">
-                                    <label>Password</label>
-                                    <input type="password" className='form-control' name='password'
-                                        value={register.password} onChange={(e) => handleChange(e)} />
-                                </div>
-                                <div className="mb-3" h>
-                                    <label>Mobile Number</label>
-                                    <input type="text" className='form-control' name='mobile'
-                                        value={register.mobile} onChange={(e) => handleChange(e)} />
-                                </div>
-                                <div className="mb-3" h>
-                                    <label>CollegeName</label>
-                                    <input type="text" className='form-control' name='ClgName'
-                                        value={register.ClgName} onChange={(e) => handleChange(e)} />
-                                </div>
-                                
-                                {/* <div className="mb-3">
-                                    <label>Confirm Password</label>
-                                    <input type="password" className='form-control' name='cpassword' />
-                                </div> */}
-                               
-                                <div className="mb-3">
-                                    <label>Address</label>
-                                    <input type="text" className='form-control' name='address'
-                                        value={register.address} onChange={(e) => handleChange(e)} />
-                                </div>
-                                
-                                <div className="text-center">
-                                    <button className='btn btn-success me-2' onClick={registerUser}>RegisterUser</button>
-                                    <button type='reset' className="btn btn-danger me-2" onClick={handleReset} >Reset</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <ToastContainer position="top-center"/>
-        </div>
+  // code for get all student
+  // const getAll = () => {
+  //   getAllUser().then((resp) => {
+  //     console.log("all User");
+  //     console.log(resp);
+  //   });
+  // };
 
-    )
-}
+  return (
+    <>
+      <Container style={{ marginTop: 60 }}>
+        <Row>
+          {JSON.stringify(data)}   
 
-export default SignUp
+          <Col sm={{ size: 6, offset: 3 }}>
+            <Card color="dark" outline>
+              <CardHeader>
+                <h4 style={{ color: "green" }}>Register Here!!</h4>
+              </CardHeader>
+
+              <CardBody>
+                {/* form creation */}
+
+                <Form onSubmit={submitForm}>
+                  <FormGroup>
+                    <Label for="firstName">FirstName</Label>
+                    <Input
+                      type="text"
+                      placeholder="Enter FirstName"
+                      id="firstName"
+                      onChange={(e) => handleChange(e, "firstName")}
+                      value={data.firstName}
+                      // invalid={
+                      //   error.errors.reponse?.data?.firstName ? true : false
+                      // }
+                    ></Input>
+                    {/* <FormFeedback>
+                      {error.errors.response?.data?.firstName}
+                    </FormFeedback> */}
+                  </FormGroup>
+
+                  <FormGroup>
+                    <Label for="lastName">LastName</Label>
+                    <Input
+                      type="text"
+                      placeholder="Enter LastName"
+                      id="lastName"
+                      onChange={(e) => handleChange(e, "lastName")}
+                      value={data.lastName}
+                    ></Input>
+                  </FormGroup>
+
+                  <FormGroup>
+                    <Label for="email">Email</Label>
+                    <Input
+                      type="email"
+                      placeholder="Enter Email"
+                      id="emailId"
+                      onChange={(e) => handleChange(e, "emailId")}
+                      value={data.emailId}
+                    ></Input>
+                  </FormGroup>
+
+                  <FormGroup>
+                    <Label for="password">Password</Label>
+                    <Input
+                      type="password"
+                      placeholder="Enter Password"
+                      id="password"
+                      onChange={(e) => handleChange(e, "password")}
+                      value={data.password}
+                    ></Input>
+                  </FormGroup>
+
+                  <FormGroup>
+                    <Label for="clgName">College Name</Label>
+                    <Input
+                      type="text"
+                      placeholder="Enter College Name"
+                      id="collegeName"
+                      onChange={(e) => handleChange(e, "collegeName")}
+                      value={data.collegeName}
+                    ></Input>
+                  </FormGroup>
+                </Form>
+                <Container>
+                  <Button
+                    outline
+                    type="submit"
+                    color="success"
+                    onClick={submitForm}
+                  >
+                    Register
+                  </Button>
+                  <Button
+                    outline
+                    color="danger"
+                    className="ms-2"
+                    onClick={resetData}
+                  >
+                    Reset
+                  </Button>
+                </Container>
+              </CardBody>
+            </Card>
+          </Col>
+        </Row>
+      </Container>
+    </>
+  );
+};
+
+export default SignUp;
