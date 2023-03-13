@@ -1,9 +1,8 @@
-<<<<<<< HEAD
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import CustomNavbar from "./CustomNavbar";
+import { withRouter } from "react-router-dom";
 import {
   Button,
   Card,
@@ -19,46 +18,20 @@ import {
 } from "reactstrap";
 import { toast } from "react-toastify";
 import { login } from "../Services/User_service";
-=======
-import React from 'react'
-import { useParams } from 'react-router-dom'
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import User from "./User";
+import axios from "axios";
 
-// import ./Login.css
-import { ToastContainer } from 'react-toastify'
-const LoginForm=()=> {
-    const { Userid } = useParams();
->>>>>>> f2b99fb952d47deab7262c3033bf13bac78e6f38
+const LoginForm = (props) => {
 
-const LoginForm = () => {
-  const navigate = useNavigate();
+  let navigate = useNavigate();
+  const [data,setData]=useState([]);
 
-<<<<<<< HEAD
+  const [userId, setUserId] = useState(null);
+
   const [loginDetails, setLoginDetails] = useState({
     email: "",
     password: "",
   });
-=======
-  
-    
-    return (
-        
-        <div>
-           
-<div className='ul'>
-
-            <div className="container mt-5">
-                <div className="row">
-                    <div className="col-md-4 offset-md-4 mt-5">
-                        <div className="card mt-5">
-                            <div className="card-header text-center fs-3 text-success">Login</div>
-                                <div className="card-body">
-                                <div className="mb-3">
-                                    <label>Email </label>
-                                    <input type="email" id="email" className='form-control' name='email' 
-                                    placeholder="Your Email" value={email} onChange={(e)=>setEmail(e.target.value)}/>
->>>>>>> f2b99fb952d47deab7262c3033bf13bac78e6f38
 
   const handleReset = () => {
     setLoginDetails({
@@ -76,6 +49,8 @@ const LoginForm = () => {
     });
   };
 
+
+
   const handleFormSubmit = (event) => {
     event.preventDefault();
     console.log(loginDetails);
@@ -89,19 +64,40 @@ const LoginForm = () => {
       return;
     }
 
-// SUBMIT data to server
-    login(loginDetails).then((resp)=>{
-      console.log(resp);
-      console.log("User logged succesfully");
-      toast.success("Welcome "+resp.firstName);
-      navigate("/user");
-    })
-    .catch((e)=>{
-      console.log(e);
-      console.log("login faied");
-    })
+    // SUBMIT data to server
+       
+    login(loginDetails)
+      .then((resp) => {
+        console.log(resp);
+        console.log("User logged succesfully");
+        toast.success("Welcome " + resp.firstName);
+        const userData=resp;
 
-  };
+        localStorage.setItem('data',JSON.stringify(userData));
+
+        setUserId(userData.id);
+        handleReset();
+
+        navigate("/user");
+
+      })
+      .catch((e) => {
+        console.log(e);
+        console.log("login faied");
+        toast.error("login failed");
+      });
+    }
+
+
+
+
+  // if(userId){
+    
+  //   return <User userId={userId} />;
+  // }
+
+
+
 
   return (
     <>
@@ -139,10 +135,12 @@ const LoginForm = () => {
                     ></Input>
                   </FormGroup>
                 </Form>
+
                 <Container>
                   <Button color="success" onClick={handleFormSubmit}>
                     Login
                   </Button>
+                  {/* {userId && <Link to={`/user/${userId}`}>go to profile</Link>} */}
                   <Link className="btn btn-warning ms-2" to={"/SignUp"}>
                     Register
                   </Link>

@@ -1,0 +1,28 @@
+.user {
+  /* background-image: '../Images/College image.jpg'; */
+  background-color: #f0ffff;
+  background-size: cover;
+}
+
+.labels {
+  display: flex;
+  flex-direction: column;
+}
+.label-item {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  margin-bottom: 10px;
+  font-size: large;
+}
+.label-item label {
+  width: 120px;
+  font-weight: 200;
+}
+.label-item span {
+  width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-left: 10px;
+}

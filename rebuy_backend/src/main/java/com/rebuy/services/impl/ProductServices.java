@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import com.rebuy.Dto.CategoryDto;
 import com.rebuy.Dto.FieldDto;
+import com.rebuy.Dto.ProductData;
 import com.rebuy.Dto.ProductDto;
 import com.rebuy.Dto.UserDto;
 import com.rebuy.exception.ResourseNotFoundException;
@@ -42,16 +43,25 @@ public class ProductServices extends Services<ProductDto, Integer> {
 	@Autowired
 	private FieldRepo fieldRepo;
 
-	public ProductDto addProduct(ProductDto productDto, Integer uid, Integer cid, Integer fid) {
+	public ProductDto addProduct(ProductData productDto) {
 
-		User user = this.userRepo.findById(uid).orElseThrow(() -> new ResourseNotFoundException("user", uid));
-		Category category = this.categoryRepo.findById(cid)
-				.orElseThrow(() -> new ResourseNotFoundException("Category", cid));
-		Field field = this.fieldRepo.findById(fid).orElseThrow(() -> new ResourseNotFoundException("Field", cid));
-		productDto.setUploadedBy(this.mapper.map(user, UserDto.class));
-		productDto.setCategory(this.mapper.map(category, CategoryDto.class));
-		productDto.setField(this.mapper.map(field, FieldDto.class));
-		Product saved = this.productRepo.save(this.mapper.map(productDto, Product.class));
+		User user = this.userRepo.findById(productDto.getUploadedBy())
+				.orElseThrow(() -> new ResourseNotFoundException("user", productDto.getUploadedBy()));
+		Category category = this.categoryRepo.findById(productDto.getCategory())
+				.orElseThrow(() -> new ResourseNotFoundException("Category", productDto.getCategory()));
+		Field field = this.fieldRepo.findById(productDto.getField())
+				.orElseThrow(() -> new ResourseNotFoundException("Field", productDto.getField()));
+
+		Product product = new Product();
+		product.setActualPrice(productDto.getActualPrice());
+		product.setCategory(category);
+		product.setField(field);
+		product.setUploadedBy(user);
+		product.setDescription(productDto.getDescription());
+		product.setSellingPrice(productDto.getSellingPrice());
+		product.setProductName(productDto.getProductName());
+
+		Product saved = this.productRepo.save(product);
 
 		return this.mapper.map(saved, ProductDto.class);
 	}

@@ -26,7 +26,7 @@ import com.rebuy.services.impl.UserServices;
 
 @RestController
 @RequestMapping("/user")
-@CrossOrigin("*")
+@CrossOrigin(origins = "http://localhost:3000/")
 public class UserController {
 
 	@Autowired
@@ -52,8 +52,8 @@ public class UserController {
 	}
 
 	@DeleteMapping("/{Id}")
-	public ResponseEntity<ApiResponse> delete(@PathVariable Integer Id) {
-		this.userServices.delete(Id);
+	public ResponseEntity<ApiResponse> delete(@PathVariable String Id) {
+		this.userServices.delete(Integer.parseInt(Id));
 		return new ResponseEntity<ApiResponse>(new ApiResponse("Cart deleted", true), HttpStatus.OK);
 	}
 
@@ -63,7 +63,7 @@ public class UserController {
 	}
 
 	@GetMapping("/{Id}")
-	public ResponseEntity<UserDto> getById(@PathVariable Integer Id) {
-		return ResponseEntity.ok(this.userServices.getById(Id));
+	public ResponseEntity<UserDto> getById(@PathVariable String Id) {
+		return ResponseEntity.ok(this.userServices.getById(Integer.parseInt(Id)));
 	}
 }

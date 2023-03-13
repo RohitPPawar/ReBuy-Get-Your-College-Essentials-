@@ -1,6 +1,6 @@
 import React from 'react'
 import { NavLink, NavLink as ReactLink} from 'react-router-dom'
-import Product from '../Pages/Products'
+// import Product from '../Pages/Products'
 import { props} from 'react'
 export default function CustomNavbar(props) {
   return (
@@ -34,9 +34,9 @@ export default function CustomNavbar(props) {
     {/* <li className="nav-item">
       <a className="nav-link  active text-light" href="/RegisterUser">Register User</a>
     </li> */}
-    <li className="nav-item">
+    {/* <li className="nav-item">
       <a className="nav-link active text-light" href="/Admin">Admin</a>
-    </li>
+    </li> */}
     <li className="nav-item">
       <a className="nav-link active text-light" href="/AboutUs">About Us</a>
     </li>
@@ -44,10 +44,10 @@ export default function CustomNavbar(props) {
       <span class="material-symbols-outlined">
            shopping_cart</span>
     </li>
-    <li className="nav-item">
+    {/* <li className="nav-item">
       <a className="nav-link active text-light" href="/Cart"><span class="material-symbols-outlined">
            shopping_cart</span></a>
-    </li>
+    </li> */}
   </ul>
 </div>
 </div>

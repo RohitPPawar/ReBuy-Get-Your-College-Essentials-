@@ -15,3 +15,7 @@ export const login = async (loginDetails)=>{
     return responce.data;
 }
 
+export const getUser=(userId)=>{
+    const responce = myAxois.get(`/user/${userId}`);
+    return responce.data;
+}

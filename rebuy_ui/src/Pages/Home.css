@@ -1,0 +1,20 @@
+.titel {
+  position: fixed;
+  top: 150px;
+  bottom: 250px;
+  left: 750px;
+  transform: translate(-50%, -50%);
+}
+
+.titel span {
+  cursor: pointer;
+  font-family: cursive;
+  color: rgb(49, 47, 48);
+  font-size: 400px;
+  text-shadow: 12px 12px #b8b0b0;
+}
+
+.subTitle{
+  font-family: cursive;
+  text-shadow:2px 2px #ffffff;
+}
