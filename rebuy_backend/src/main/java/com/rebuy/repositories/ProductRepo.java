@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.rebuy.Dto.ProductDto;
 import com.rebuy.model.Category;
 import com.rebuy.model.Field;
 import com.rebuy.model.Product;

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import "../Pages/Home";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 // import "react-toastify/dist/ReactToastify.css";
 import { getAllUser, signUp } from "../Services/User_service";
@@ -13,12 +13,16 @@ import {
   Col,
   Container,
   Form,
-  FormFeedback,
   FormGroup,
   Input,
   Label,
   Row,
 } from "reactstrap";
+
+// this line is used to extract path variables
+// use same sequance as mentioned in url while destructuring
+// const {userId,productId} = useParams();
+
 
 // const navigate = useNavigate();
 

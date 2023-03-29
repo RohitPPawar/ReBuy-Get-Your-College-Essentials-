@@ -15,12 +15,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rebuy.Dto.LoginDetails;
 import com.rebuy.Dto.UserDto;
 import com.rebuy.exception.InvalidUserException;
-import com.rebuy.model.User;
 import com.rebuy.payloads.ApiResponse;
 import com.rebuy.services.impl.UserServices;
 

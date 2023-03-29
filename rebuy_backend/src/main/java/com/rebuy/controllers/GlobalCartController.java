@@ -20,7 +20,7 @@ import com.rebuy.payloads.ApiResponse;
 import com.rebuy.services.impl.GlobalCartServices;
 
 @RestController
-@RequestMapping("/globalCart")
+@RequestMapping("/cart")
 public class GlobalCartController {
 
 	@Autowired
@@ -32,8 +32,16 @@ public class GlobalCartController {
 		return new ResponseEntity<GlobalCartDto>(created, HttpStatus.CREATED);
 	}
 
+	//add to cart
+	@PostMapping("/user/{userId}/product/{productId}")
+	public ResponseEntity<GlobalCartDto> addProduct(@PathVariable Integer userId, @PathVariable Integer productId) {
+		GlobalCartDto created = this.globalCartServices.addToCart(userId, productId);
+		return new ResponseEntity<GlobalCartDto>(created, HttpStatus.CREATED);
+	}
+
 	@PutMapping("/{Id}")
-	public ResponseEntity<GlobalCartDto> update(@RequestBody GlobalCartDto globalCartDto, @PathVariable UserProductCompositeKeyDto Id) {
+	public ResponseEntity<GlobalCartDto> update(@RequestBody GlobalCartDto globalCartDto,
+			@PathVariable UserProductCompositeKeyDto Id) {
 		GlobalCartDto updated = this.globalCartServices.update(globalCartDto, Id);
 		return new ResponseEntity<GlobalCartDto>(updated, HttpStatus.OK);
 	}
@@ -52,5 +60,10 @@ public class GlobalCartController {
 	@GetMapping("/{Id}")
 	public ResponseEntity<GlobalCartDto> getById(@PathVariable UserProductCompositeKeyDto Id) {
 		return ResponseEntity.ok(this.globalCartServices.getById(Id));
+	}
+	
+	@GetMapping("/user/{userId}/products")
+	public ResponseEntity<List<GlobalCartDto>> getAllProducts(@PathVariable Integer userId) {
+		return ResponseEntity.ok(this.globalCartServices.getAllByUser(userId));
 	}
 }

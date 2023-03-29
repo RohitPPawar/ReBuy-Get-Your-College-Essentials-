@@ -8,10 +8,12 @@ import javax.persistence.OneToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Embeddable
 @AllArgsConstructor
+@NoArgsConstructor
 public class UserProductCompositeKey implements Serializable {
 
 	/**

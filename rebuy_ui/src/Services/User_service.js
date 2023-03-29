@@ -1,6 +1,6 @@
 import { myAxois } from "./Helper";
 
-export const signUp=async (user)=>{
+export const signUp= async (user)=>{
     const responce = await myAxois.post("/user/", user);
     return responce.data;
 };

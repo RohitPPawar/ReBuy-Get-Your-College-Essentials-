@@ -9,7 +9,7 @@ function productCard(props) {
       >
         <img
           className="card-img-top"
-          src={props.products.image}
+          src="F:/Cdac/Projects/ReBuy/rebuy_backend/images/IMG_20220520_195215.jpg"
           alt="Card image cap"
         />
         <div className="card-body">

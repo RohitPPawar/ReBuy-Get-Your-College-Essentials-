@@ -1,10 +1,12 @@
 package com.rebuy.controllers;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,10 +19,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.rebuy.Dto.ProductData;
 import com.rebuy.Dto.ProductDto;
 import com.rebuy.payloads.ApiResponse;
+import com.rebuy.services.impl.FileService;
 import com.rebuy.services.impl.ProductServices;
 
 @RestController
@@ -32,7 +36,7 @@ public class ProductController {
 	private ProductServices productServices;
 
 	@PostMapping("/")
-	public ResponseEntity<ProductDto> create(@Valid @RequestBody ProductData productDto) {
+	public ResponseEntity<ProductDto> create(@Valid @RequestBody ProductDto productDto) {
 		ProductDto created = this.productServices.addProduct(productDto);
 		return new ResponseEntity<ProductDto>(created, HttpStatus.CREATED);
 	}

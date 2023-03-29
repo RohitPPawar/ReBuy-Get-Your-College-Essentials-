@@ -1,5 +1,6 @@
 package com.rebuy.exception;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,10 +36,17 @@ public class GlobalExceptionHandler {
 	
 	
 	@ExceptionHandler(InvalidUserException.class)
-	public ResponseEntity<ApiResponse> invalidUserExceptionHandler(ResourseNotFoundException ex) {
+	public ResponseEntity<ApiResponse> invalidUserExceptionHandler(InvalidUserException ex) {
 		String message = ex.getMessage();
 		ApiResponse apiResponse = new ApiResponse(message, false);
 		return new ResponseEntity<ApiResponse>(apiResponse, HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(IOException.class)
+	public ResponseEntity<ApiResponse> IOExceptionHandler(IOException ex) {
+		String message = ex.getMessage();
+		ApiResponse apiResponse = new ApiResponse(message, false);
+		return new ResponseEntity<ApiResponse>(apiResponse, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 }

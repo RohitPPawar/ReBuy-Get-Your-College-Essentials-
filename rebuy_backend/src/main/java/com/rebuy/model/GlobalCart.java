@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Entity
@@ -22,4 +23,17 @@ public class GlobalCart {
 	@OneToOne(mappedBy = "globalCart")
 	private Order order;
 
+	public GlobalCart(UserProductCompositeKey cartId, LocalDate date) {
+		super();
+		this.cartId = cartId;
+		this.date = date;
+	}
+
+	public GlobalCart() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	
+	
 }

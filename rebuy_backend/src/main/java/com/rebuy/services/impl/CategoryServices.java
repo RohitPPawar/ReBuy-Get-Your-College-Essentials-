@@ -31,7 +31,8 @@ public class CategoryServices extends Services<CategoryDto, Integer> {
 	public CategoryDto update(CategoryDto categoryDto, Integer id) {
 		Category old = this.categoryRepo.findById(id).orElseThrow(() -> new ResourseNotFoundException("Category", id));
 		old.setType(categoryDto.getType());
-		return this.mapper.map(old, CategoryDto.class);
+		Category updated = this.categoryRepo.save(old); 
+		return this.mapper.map(updated, CategoryDto.class);
 	}
 
 	@Override

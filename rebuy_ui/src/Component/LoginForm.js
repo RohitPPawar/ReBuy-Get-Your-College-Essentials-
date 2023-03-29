@@ -50,11 +50,12 @@ const LoginForm = (props) => {
   };
 
 
-
   const handleFormSubmit = (event) => {
     event.preventDefault();
     console.log(loginDetails);
 
+
+    //  form validation 
     if (loginDetails.email == "") {
       toast.error("Email is Required");
       return;
@@ -66,8 +67,8 @@ const LoginForm = (props) => {
 
     // SUBMIT data to server
        
-    login(loginDetails)
-      .then((resp) => {
+    login(loginDetails)  // call to axios //third party lib to connect frontend with backend 
+      .then((resp) => {  // use of promise
         console.log(resp);
         console.log("User logged succesfully");
         toast.success("Welcome " + resp.firstName);
@@ -88,17 +89,7 @@ const LoginForm = (props) => {
       });
     }
 
-
-
-
-  // if(userId){
     
-  //   return <User userId={userId} />;
-  // }
-
-
-
-
   return (
     <>
       <Container style={{ marginTop: 60 }}>

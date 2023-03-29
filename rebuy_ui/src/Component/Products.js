@@ -42,7 +42,7 @@ function Products() {
               <div className="col-3 col-md-3 col-lg-3 mx-0 mb-4" key={product.id}>
                 <div class="shadow p-3 mb-5 bg-white rounded">
                 <Card style={{ width: "100%",padding:"20px",margin:"10px" }} className="card p-0 overflow-hidden h-100 shaddow" >
-                  <CardImg variant="top" style={{height:"250px"}} src={product.image} className="card-img-top img-fluid"/>
+                  <CardImg variant="top" style={{height:"250px"}} src="F:\\Cdac\\Projects\\ReBuy\\rebuy_backend\\images\\1.jpg" className="card-img-top img-fluid"/>
                   <CardBody>
                     <CardTitle>{product.productName}</CardTitle>
                     <CardText>

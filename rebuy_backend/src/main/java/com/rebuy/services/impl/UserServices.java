@@ -18,13 +18,11 @@ import com.rebuy.service.Services;
 @Service
 public class UserServices extends Services<UserDto, Integer> {
 
-	private static final Exception InvalidUserException = null;
 	@Autowired
 	private UserRepo userRepo;
 	@Autowired
 	private ModelMapper mapper;
-	private boolean isUnique = true;
-	private com.rebuy.exception.InvalidUserException ex;
+	
 
 	@Override
 	public UserDto create(UserDto userDto) {
@@ -35,7 +33,7 @@ public class UserServices extends Services<UserDto, Integer> {
 
 	public UserDto createUser(UserDto userDto) throws com.rebuy.exception.InvalidUserException {
 		List<User> allUser = this.userRepo.findAll();
-
+		boolean isUnique = true;
 		for (User user : allUser) {
 			if (user.getEmailId().equals(userDto.getEmailId())) {
 				isUnique = false;
@@ -43,7 +41,7 @@ public class UserServices extends Services<UserDto, Integer> {
 			}
 		}
 		if (!isUnique) {
-			throw ex = new InvalidUserException("User alredy exits");
+			throw  new InvalidUserException("User alredy exits");
 		}
 
 		User user = this.mapper.map(userDto, User.class);
@@ -57,10 +55,10 @@ public class UserServices extends Services<UserDto, Integer> {
 //		System.out.println(user);
 //		System.out.println("\n======\n"+loginDetails);
 		if (user == null) {
-			throw ex = new InvalidUserException("Invalid username ");
+			throw  new InvalidUserException("Invalid username ");
 		}
 		if (!user.getPassword().equals(loginDetails.getPassword())) {
-			throw ex = new InvalidUserException("Invalid password ");
+			throw new InvalidUserException("Invalid password ");
 		}
 		UserDto userDto = this.mapper.map(user, UserDto.class);
 		userDto.setPassword(null);
